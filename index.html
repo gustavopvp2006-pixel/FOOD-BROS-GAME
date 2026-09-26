@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="Nutri - Aventura Nutritiva. Jogo educativo sobre alimentação saudável."
+    >
+
+    <title>Nutri - Aventura Nutritiva</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main id="game-container">
+
+        <!-- =====================================================
+             MENU PRINCIPAL
+        ====================================================== -->
+
+        <section id="menu-screen" class="screen active">
+
+            <div class="menu-content">
+
+                <div class="game-logo">
+                    <span>🍎</span>
+
+                    <h1>NUTRI</h1>
+
+                    <span>🥦</span>
+                </div>
+
+                <h2>Aventura Nutritiva</h2>
+
+                <p class="subtitle">
+                    Uma aventura sobre escolhas, energia e equilíbrio.
+                </p>
+
+                <button id="start-button" class="main-button">
+                    ▶ COMEÇAR JOGO
+                </button>
+
+                <button id="instructions-button" class="secondary-button">
+                    ❔ COMO JOGAR
+                </button>
+
+                <div class="academic-info">
+                    <p>🎓 Projeto educativo - Nutrição</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             INSTRUÇÕES
+        ====================================================== -->
+
+        <section id="instructions-screen" class="screen">
+
+            <div class="panel">
+
+                <h2>🎮 Como Jogar</h2>
+
+                <div class="controls">
+
+                    <div class="control">
+                        <strong>← →</strong>
+                        <span>Movimentar</span>
+                    </div>
+
+                    <div class="control">
+                        <strong>↑ / W / X</strong>
+                        <span>Pular</span>
+                    </div>
+
+                    <div class="control">
+                        <strong>↓ / S</strong>
+                        <span>Agachar</span>
+                    </div>
+
+                    <div class="control">
+                        <strong>Z</strong>
+                        <span>Atacar</span>
+                    </div>
+
+                </div>
+
+                <div class="education-box">
+
+                    <h3>🍎 Escolhas alimentares</h3>
+
+                    <p>
+                        Frutas, verduras, legumes, feijão e outros alimentos
+                        in natura ou minimamente processados ajudam a recuperar
+                        sua Energia Nutritiva.
+                    </p>
+
+                    <p>
+                        Alimentos ultraprocessados não são proibidos.
+                        O jogo trabalha a ideia de equilíbrio, variedade
+                        e frequência de consumo.
+                    </p>
+
+                </div>
+
+                <button id="back-menu-button" class="main-button">
+                    ← VOLTAR
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             JOGO
+        ====================================================== -->
+
+        <section id="game-screen" class="screen">
+
+            <canvas id="gameCanvas"></canvas>
+
+            <!-- HUD -->
+
+            <div id="hud">
+
+                <div class="hud-left">
+
+                    <div class="hud-item">
+                        <span>❤️</span>
+                        <span id="lives">3</span>
+                    </div>
+
+                    <div class="hud-item energy">
+
+                        <span>⚡</span>
+
+                        <div class="energy-container">
+                            <div id="energy-bar" class="energy-bar"></div>
+                        </div>
+
+                        <span id="energy-value">100</span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="hud-center">
+
+                    <span id="phase-name">
+                        Fase 1 - Café da manhã
+                    </span>
+
+                </div>
+
+
+                <div class="hud-right">
+
+                    <div>
+                        ⭐ <span id="score">0</span>
+                    </div>
+
+                    <div>
+                        🍎 <span id="food-count">0</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             TELA EDUCATIVA
+        ====================================================== -->
+
+        <section id="education-screen" class="screen">
+
+            <div class="panel education-panel">
+
+                <div id="education-icon">
+                    🌱
+                </div>
+
+                <h2 id="education-title">
+                    Você avançou!
+                </h2>
+
+                <h3>
+                    Mas o que sua escolha representa na vida real?
+                </h3>
+
+                <p id="education-text">
+                    Uma alimentação adequada envolve variedade,
+                    equilíbrio e escolhas feitas ao longo do tempo.
+                </p>
+
+                <div class="education-stats">
+
+                    <div>
+                        <span>⭐</span>
+                        <strong id="education-score">0</strong>
+                        <small>Pontos</small>
+                    </div>
+
+                    <div>
+                        <span>⚡</span>
+                        <strong id="education-energy">100</strong>
+                        <small>Energia</small>
+                    </div>
+
+                    <div>
+                        <span>🍎</span>
+                        <strong id="education-foods">0</strong>
+                        <small>Alimentos</small>
+                    </div>
+
+                </div>
+
+                <button
+                    id="next-phase-button"
+                    class="main-button"
+                >
+                    PRÓXIMA FASE →
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             GAME OVER
+        ====================================================== -->
+
+        <section id="gameover-screen" class="screen">
+
+            <div class="panel gameover-panel">
+
+                <div class="big-icon">
+                    💪
+                </div>
+
+                <h2>Ops! A energia acabou.</h2>
+
+                <p>
+                    Toda rotina possui desafios.
+                    Que tal tentar novamente fazendo escolhas
+                    mais equilibradas?
+                </p>
+
+                <div class="final-score">
+
+                    <span>Pontuação</span>
+
+                    <strong id="gameover-score">
+                        0
+                    </strong>
+
+                </div>
+
+                <button
+                    id="restart-button"
+                    class="main-button"
+                >
+                    🔄 TENTAR NOVAMENTE
+                </button>
+
+                <button
+                    id="gameover-menu-button"
+                    class="secondary-button"
+                >
+                    MENU PRINCIPAL
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             VITÓRIA
+        ====================================================== -->
+
+        <section id="victory-screen" class="screen">
+
+            <div class="panel victory-panel">
+
+                <div class="victory-icon">
+                    🏆
+                </div>
+
+                <h1>PARABÉNS!</h1>
+
+                <h2>Você venceu o Chef da Rotina Corrida!</h2>
+
+                <p class="victory-message">
+                    Uma alimentação saudável não depende de uma escolha
+                    perfeita, mas do conjunto das escolhas feitas ao
+                    longo do tempo.
+                </p>
+
+
+                <div class="concepts">
+
+                    <div class="concept">
+
+                        <span>🍎</span>
+
+                        <h3>Variedade</h3>
+
+                        <p>
+                            Inclua diferentes alimentos para tornar
+                            a alimentação mais diversificada.
+                        </p>
+
+                    </div>
+
+
+                    <div class="concept">
+
+                        <span>🥦</span>
+
+                        <h3>Equilíbrio</h3>
+
+                        <p>
+                            Busque equilíbrio entre diferentes grupos
+                            de alimentos e necessidades do organismo.
+                        </p>
+
+                    </div>
+
+
+                    <div class="concept">
+
+                        <span>💧</span>
+
+                        <h3>Moderação</h3>
+
+                        <p>
+                            O contexto e a frequência das escolhas
+                            também fazem parte de uma alimentação adequada.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="final-score">
+
+                    <span>Pontuação final</span>
+
+                    <strong id="victory-score">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <button
+                    id="victory-restart-button"
+                    class="main-button"
+                >
+                    🔄 JOGAR NOVAMENTE
+                </button>
+
+                <button
+                    id="victory-menu-button"
+                    class="secondary-button"
+                >
+                    MENU PRINCIPAL
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================== -->
+
+    <script src="script.js"></script>
+
+</body>
+</html>

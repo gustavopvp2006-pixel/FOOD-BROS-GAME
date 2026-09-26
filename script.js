@@ -37,6 +37,9 @@ const ctx = canvas.getContext("2d");
 
 ctx.imageSmoothingEnabled = false;
 
+const backgroundImage = new Image();
+backgroundImage.src = "assets/fundo-jogo.jpe";
+
 
 /* ============================================================
    CONFIGURAÇÃO DO JOGO
@@ -2865,6 +2868,8 @@ class Food {
         ctx.textAlign =
             "center";
 
+        ctx.filter =
+            "saturate(2.05) contrast(1.22)";
 
         ctx.fillText(
 
@@ -2876,6 +2881,9 @@ class Food {
             y + 35
 
         );
+
+        ctx.filter =
+            "none";
 
 
         ctx.textAlign =
@@ -3287,6 +3295,19 @@ function drawBackground() {
         phases[
             currentPhase
         ].theme;
+
+    if (backgroundImage && backgroundImage.complete) {
+
+        ctx.drawImage(
+            backgroundImage,
+            0,
+            0,
+            GAME_WIDTH,
+            GAME_HEIGHT
+        );
+
+        return;
+    }
 
 
     let skyTop;
